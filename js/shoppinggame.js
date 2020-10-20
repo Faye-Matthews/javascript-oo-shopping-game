@@ -27,16 +27,17 @@ function Product(id, name, price, expiryDate) {
   this.price = price;
   this.expiryDate = expiryDate;
 };
+
 // Complete the dateDiff function
-function dateDiff(date1, date2) {
-  var Difference_In_Time = date2.getTime() - date1.getTime();
-  var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+const dateDiff = (date1, date2) => {
+  let Difference_In_Time = Math.abs(date2.getTime() - date1.getTime());
+  var Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24));
   return Difference_In_Days;
 };
 
 // Here, use Object.defineProperty to create property - daysToExpire
 Object.defineProperty(Product.prototype, 'daysToExpire', {
-  get daysToExpire() {
+  get: function() {
     return dateDiff(this.expiryDate, new Date());
   }
 });
@@ -59,11 +60,22 @@ MagicProduct.prototype = Object.create(Product.prototype);
 
 // Define Rating class here
 class Rating {
-  constructor(rate = "") {
+  constructor() {
     this.rate = "";
-    set: rating(rate)
   }
-}
+
+  set rating(value) {
+    if (value > 1 && value <= 4) {
+      this.rate = "OK";
+    } else if (value >= 5 && value <= 7) {
+      this.rate = "GOOD";
+    } else if (value > 7) {
+      this.rate = "EXCEPTIONAL";
+    } else {
+      this.rate = "BAD";
+    }
+  }
+};
 
 // Complete the loadProducts function
 const loadProducts = (map, prodId) => {
