@@ -1,4 +1,4 @@
-let gameComplete = false;
+let gameComplete = true;
 // Define the three constants here
 const name = "unknown";
 const score = 0;
